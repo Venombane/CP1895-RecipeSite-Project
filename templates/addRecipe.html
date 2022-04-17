@@ -6,42 +6,44 @@
     <title>Add Recipe</title>
 </head>
 <body class="bg-dark">
-    <div class="container bg-dark">
+    <div class="container bg-dark w-50">
         <div class="bg-dark">
-            <h4 class="mb-3 text-white text-center">Enter Recipe Information</h4>
+            <h1 class="mb-3 text-white text-center fw-bold">Enter Recipe Information</h1>
+            <hr class="text-white">
             <form>
-                <div class="mb-3 col-md-12 text-white">
+                <div class="mb-3 col-md-12 text-white w-50 fw-bold fs-5">
                     <label for="recipe-name">Recipe Name</label>
                     <input type="text" class="form-control" id="recipe-name">
                 </div>
                 <div class="row">
-                    <div class="mb-3 col-md-4 text-center text-white">
+                    <div class="mb-3 col-md-4 text-center text-white fw-bold fs-5">
                         <label for="servings">Servings</label>
                         <input type="text" class="form-control" id="servings">
                     </div>
-                    <div class="mb-3 col-md-4 text-center text-white">
+                    <div class="mb-3 col-md-4 text-center text-white fw-bold fs-5">
                         <label for="total-time">Total (mins)</label>
                         <input type="text" class="form-control" id="total-time">
                     </div>
-                    <div class="mb-3 col-md-4 text-center text-white">
+                    <div class="mb-3 col-md-4 text-center text-white fw-bold fs-5">
                         <label for="prep-time">Prep (mins)</label>
                         <input type="text" class="form-control" id="prep-time">
                     </div>
                 </div>
-                <div class="mb-3 col-md-12 text-white">
+                <div class="mb-3 col-md-12 text-white fw-bold fs-5">
                     <label for="description">Description</label>
                     <textarea class="form-control" id="description" rows="3"></textarea>
                 </div>
-                <div class="mb-3 col-md-12 text-white">
+                <div class="mb-3 col-md-12 text-white fw-bold fs-5">
                     <label for="ingredients">Ingredients</label>
                     <textarea class="form-control" id="ingredients" rows="3"></textarea>
                 </div>
-                <div class="mb-3 col-md-12 text-white">
+                <div class="mb-3 col-md-12 text-white fw-bold fs-5">
                     <label for="instructions">Instructions</label>
                     <textarea class="form-control" id="instructions" rows="3"></textarea>
                 </div>
                 <button type="submit" id="submit" class="btn btn-primary">Submit</button>
                 <button type="submit" id="clear" class="btn btn-primary">Clear</button>
+                <hr class="text-white">
             </form>
         </div>
     </div>
