@@ -22,10 +22,15 @@ def add_recipe():
         instructions = request.form['instructions']
         recipe = [recipeName, servings, total, prep, description, ingredients, instructions]
 
-        with open('Recipes.csv', 'a') as file:
+        with open('Recipes.csv', 'a', newline='') as file:
             writer = csv.writer(file)
             writer.writerow(recipe)
-        return render_template("recipeList.html")
+            file.close()
+        with open('Recipes.csv', 'r') as newFile:
+            reader = csv.reader(newFile)
+            add_recipes = list(reader)
+            newFile.close()
+        return render_template("recipeList.html", recipes=add_recipes)
 
     else:
         return render_template("addRecipe.html")
@@ -33,9 +38,53 @@ def add_recipe():
 
 @app.route("/recipeList")
 def recipes():
-    return render_template("recipeList.html")
+    with open('Recipes.csv', 'r') as file:
+        reader = csv.reader(file)
+        recipes = list(reader)
+    return render_template("recipeList.html", recipes=recipes)
 
 
-@app.route("/removeRecipe")
+@app.route("/removeRecipe", methods=['POST', 'GET'])
 def remove_recipe():
-    return render_template("removeRecipe.html")
+    with open('Recipes.csv', 'r') as file:
+        reader = csv.reader(file)
+        recipes = list(reader)
+        file.close()
+    if request.method == 'POST':
+        recipe_number = request.form['recipe_number']
+
+        if len(recipes) > int(recipe_number) > 0:
+            recipes.pop(int(recipe_number) - 1)
+            with open('Recipes.csv', 'w', newline='') as newFile:
+                writer = csv.writer(newFile)
+                for recipe in recipes:
+                    writer.writerow(recipe)
+                newFile.close()
+            with open('Recipes.csv', 'r') as newFile:
+                reader = csv.reader(newFile)
+                add_recipes = list(reader)
+                newFile.close()
+            print("here")
+
+            return render_template("recipeList.html", recipes=add_recipes)
+        else:
+            return render_template("recipeList.html", recipes=recipes)
+
+    else:
+        return render_template("removeRecipe.html", recipes=recipes)
+
+
+@app.route("/remove_all_recipes", methods=['POST', 'GET'])
+def remove_all_recipe():
+    with open('Recipes.csv', 'r') as file:
+        reader = csv.reader(file)
+        recipes = list(reader)
+        recipes.clear()
+        with open('Recipes.csv', 'w') as newFile:
+            writer = csv.writer(newFile)
+            for recipe in recipes:
+                writer.writerow(recipe)
+        with open('Recipes.csv', 'r') as file:
+            reader = csv.reader(file)
+            new_recipes = list(reader)
+            return render_template("recipeList.html", recipes=new_recipes)
