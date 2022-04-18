@@ -10,43 +10,115 @@
         <div class="bg-dark">
             <h1 class="mb-3 text-white text-center fw-bold">Enter Recipe Information</h1>
             <hr class="text-white">
-            <form>
+
+            <form action="{{ url_for('add_recipe') }}" method="post">
                 <div class="mb-3 col-md-12 text-white w-50 fw-bold fs-5">
                     <label for="recipe-name">Recipe Name</label>
-                    <input type="text" class="form-control" id="recipe-name">
+                    <input type="text" class="form-control" id="recipe-name" name="recipe_name">
                 </div>
                 <div class="row">
                     <div class="mb-3 col-md-4 text-center text-white fw-bold fs-5">
                         <label for="servings">Servings</label>
-                        <input type="text" class="form-control" id="servings">
+                        <input type="text" class="form-control" id="servings" name="servings">
                     </div>
                     <div class="mb-3 col-md-4 text-center text-white fw-bold fs-5">
                         <label for="total-time">Total (mins)</label>
-                        <input type="text" class="form-control" id="total-time">
+                        <input type="text" class="form-control" id="total-time" name="total_time">
                     </div>
                     <div class="mb-3 col-md-4 text-center text-white fw-bold fs-5">
                         <label for="prep-time">Prep (mins)</label>
-                        <input type="text" class="form-control" id="prep-time">
+                        <input type="text" class="form-control" id="prep-time" name="prep_time">
                     </div>
                 </div>
                 <div class="mb-3 col-md-12 text-white fw-bold fs-5">
                     <label for="description">Description</label>
-                    <textarea class="form-control" id="description" rows="3"></textarea>
+                    <textarea class="form-control" id="description" rows="3" name="description"></textarea>
                 </div>
                 <div class="mb-3 col-md-12 text-white fw-bold fs-5">
                     <label for="ingredients">Ingredients</label>
-                    <textarea class="form-control" id="ingredients" rows="3"></textarea>
+                    <textarea class="form-control" id="ingredients" rows="3" name="ingredients"></textarea>
                 </div>
                 <div class="mb-3 col-md-12 text-white fw-bold fs-5">
                     <label for="instructions">Instructions</label>
-                    <textarea class="form-control" id="instructions" rows="3"></textarea>
+                    <textarea class="form-control" id="instructions" rows="3" name="instructions"></textarea>
                 </div>
-                <button type="submit" id="submit" class="btn btn-primary">Submit</button>
-                <button type="submit" id="clear" class="btn btn-primary">Clear</button>
+                <input type="button" id="btnsubmit" value="Submit">
+                <input type="button" id="clear" value="Clear">
                 <hr class="text-white">
             </form>
         </div>
     </div>
-    <script src="form-validation.js"></script>
+
+    <script>
+        const $ = selector => document.querySelector(selector);
+
+        const processEntries = () => {
+            const recipe_name = $("#recipe-name");
+            const servings = $("#servings");
+            const total_time = $("#total-time");
+            const prep_time = $("#prep-time");
+            const description = $("#description");
+            const ingredients = $("#ingredients");
+            const instructions = $("#instructions");
+
+            let isValid = true;
+            if (recipe_name.value === "") {
+                alert("Recipe name is required");
+                isValid = false;
+            }
+            if (servings.value === "") {
+                alert("Servings are required");
+                isValid = false;
+            } else if (isNaN(servings.value) === true) {
+                alert("Servings must be a number.");
+                isValid = false;
+            }
+
+            if (total_time.value === "") {
+                alert("Total is required.");
+                isValid = false;
+            } else if (isNaN(total_time.value) === true) {
+                alert("Total must be a number.");
+                isValid = false;
+            }
+
+            if (prep_time.value === "") {
+                alert("Prep time is required");
+                isValid = false;
+            } else if (isNaN(prep_time.value) === true) {
+                alert("Prep time must be a number.");
+                isValid = false;
+            }
+
+            if (description.value === "") {
+                alert("Description is required");
+                isValid = false;
+            }
+            if (ingredients.value === "") {
+                alert("Ingredients are required");
+                isValid = false;
+            }
+            if (instructions.value === "") {
+                alert("Instructions are required");
+                isValid = false;
+            }
+
+
+            if (isValid === true) {
+                $("form").submit();
+            }
+        };
+
+        const resetForm = () => {
+            $('form').reset();
+            $("#recipe-name").focus();
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            $('#btnsubmit').addEventListener("click", processEntries);
+            $('#clear').addEventListener("click", resetForm);
+            $('#recipe-name').focus();
+        });
+    </script>
 </body>
 </html>
